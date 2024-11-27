@@ -61,7 +61,7 @@ The two cities used are Charleston, South Carolina and Charlotte, North Carolina
 ```{r}
 state_data <- state_data |>
   mutate(genus = str_extract(ScientificName, "^[^ ]+"))
-genus_avg_crown <- filtered_data |> 
+genus_avg_crown <- state_data |> 
   group_by(genus) |>
   summarise(avg_crown = mean(`AvgCdia (m)`))
 largest_crown <- genus_avg_crown |> 
