@@ -1,0 +1,73 @@
+---
+title: "Hw6-HarrisonBartley"
+format: html
+editor: visual
+---
+
+```{r}
+library(readr)
+library(tidyverse)
+library(ggplot2)
+TS3_Raw_tree_data <- read_csv("~/Desktop/plan372-fa24-hb/Hw-6-hb/RDS-2016-0005/Data/TS3_Raw_tree_data.csv")
+```
+
+```{r}
+data <- TS3_Raw_tree_data
+```
+
+###Question 1:
+
+```{r}
+data <- data |>
+  mutate(
+    city_name = sub(",.*$", "", City),
+    state = sub("^.*, ", "", City)
+  )
+
+state_count <- data |>
+  group_by(state) |> 
+  summarize(count = n()) 
+
+ggplot(state_count, aes(x = state, y = count)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Number of Entries per State",
+       x = "State",
+       y = "Number of Entries")
+```
+
+```{r}
+state_count
+```
+
+
+###Question #2
+
+```{r}
+state_data <- data |>
+  filter(str_detect(state, "^(NC|SC)$"))
+state_cities <- state_data |> 
+  group_by(city_name, state) |>
+  summarise()
+state_cities
+```
+The two cities used are Charleston, South Carolina and Charlotte, North Carolina.  
+
+
+
+###Question 3
+
+```{r}
+state_data <- state_data |>
+  mutate(genus = str_extract(ScientificName, "^[^ ]+"))
+genus_avg_crown <- filtered_data |> 
+  group_by(genus) |>
+  summarise(avg_crown = mean(`AvgCdia (m)`))
+largest_crown <- genus_avg_crown |> 
+  filter(avg_crown == max(avg_crown))
+
+largest_crown
+```
+
+As shown above, the Quercus genus has the largest average crown of 13.62316 meters.
+
+
