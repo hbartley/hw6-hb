@@ -4,6 +4,8 @@ format: html
 editor: visual
 ---
 
+https://github.com/hbartley/hw6-hb/tree/553a35c2a98700e8f33286d7587c55c3791adcf2/plan372-fa24-hb/Hw-6-hb
+
 ```{r}
 library(readr)
 library(tidyverse)
